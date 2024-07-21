@@ -1,5 +1,6 @@
 import {Fragment} from "react";
 
+
 const Header = (props) => {
     return (
         <h1>{props.course}</h1>
@@ -19,11 +20,14 @@ const Content = (props) => {
     );
 }
 
-const  Total = (props) => {
+
+const Total = (props) => {
+    const total = (props.parts || []).reduce((sum, part) => sum + part.exercises, 0);
     return (
-        <p>Number of exercises <b>{props.total}</b></p>
+        <p>Number of exercises <b>{total}</b></p>
     )
 }
+
 
 const App = () => {
     const course = 'Half Stack application development'
@@ -43,15 +47,13 @@ const App = () => {
         }
     ]
 
-    let total = 0;
-
     return (
         <div>
             <Header course={course}/>
 
             <Content parts={parts}/>
 
-            <Total total={total}/>
+            <Total parts={parts}/>
         </div>
     )
 }
