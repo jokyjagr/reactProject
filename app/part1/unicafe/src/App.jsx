@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import Header from "./components/Header.jsx";
 import Statistics from "./components/Statistics.jsx";
+import Button from "./components/Button.jsx";
 
 const App = () => {
     const goodValue = 1;
@@ -63,9 +64,9 @@ const App = () => {
     return (
         <>
             <Header text={"Give feedback"}/>
-            <button onClick={handleGoodClick}>good</button>
-            <button onClick={handleNeutralClick}>neutral</button>
-            <button onClick={handleBadClick}>bad</button>
+            <Button onCLickHandle={handleGoodClick} text={"good"}/>
+            <Button onCLickHandle={handleNeutralClick} text={"neutral"}/>
+            <Button onCLickHandle={handleBadClick} text={"bad"}/>
 
             <Header text={"Statistics"}/>
             <Statistics values={statistics}/>
