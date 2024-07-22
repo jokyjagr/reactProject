@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 const App = () => {
+    const [selected, setSelected] = useState(0)
     const anecdotes = [
         'If it hurts, do it more often.',
         'Adding manpower to a late software project makes it later!',
@@ -9,20 +10,30 @@ const App = () => {
         'Premature optimization is the root of all evil.',
         'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
         'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
-        'The only way to go fast, is to go well.'
+        'The only way to go fast, is to go well.',
+        'Dinamism is the key to success.',
     ]
+
+
+    const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
     const selectRandomAnecdote = () => {
         const randomIndex = Math.floor(Math.random() * anecdotes.length);
         setSelected(randomIndex);
     }
 
-    const [selected, setSelected] = useState(0)
+    const voteAnecdote = () => {
+        const copyVotes = [...votes];
+        copyVotes[selected] += 1;
+        setVotes(copyVotes);
+    }
 
     return (
         <div>
             <div>{anecdotes[selected]}</div>
+            <div>has {votes[selected]} votes</div>
             <button onClick={selectRandomAnecdote}>Next anecdotes</button>
+            <button onClick={voteAnecdote}>Vote</button>
         </div>
     )
 }
