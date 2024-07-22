@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import Header from "./components/Header.jsx";
 
 const App = () => {
     const [selected, setSelected] = useState(0)
+
     const anecdotes = [
         'If it hurts, do it more often.',
         'Adding manpower to a late software project makes it later!',
@@ -13,7 +15,6 @@ const App = () => {
         'The only way to go fast, is to go well.',
         'Dinamism is the key to success.',
     ]
-
 
     const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
@@ -28,12 +29,20 @@ const App = () => {
         setVotes(copyVotes);
     }
 
+    const indexOfMaxVote = votes.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+
     return (
         <div>
+            <Header text={"Anecdote of the day"}/>
             <div>{anecdotes[selected]}</div>
             <div>has {votes[selected]} votes</div>
             <button onClick={selectRandomAnecdote}>Next anecdotes</button>
             <button onClick={voteAnecdote}>Vote</button>
+
+            <Header text={"Anecdote with most votes"}/>
+            <div>{anecdotes[indexOfMaxVote]}</div>
+            <div>has {votes[indexOfMaxVote]} votes</div>
+
         </div>
     )
 }
