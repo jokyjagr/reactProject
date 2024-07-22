@@ -11,14 +11,34 @@ const Statistics = (props) => {
         )
     } else {
         return (
-            <>
-                <StatisticLine text="Good: " value={statistics.good}/>
-                <StatisticLine text="Neutral: " value={statistics.neutral}/>
-                <StatisticLine text="Bad: " value={statistics.bad}/>
-                <StatisticLine text="All: " value={statistics.all}/>
-                <StatisticLine text="Average: " value={statistics.average}/>
-                <StatisticLine text="Positive: " value={statistics.positive}/>
-            </>
+            <table>
+                <tbody>
+                <tr>
+                    <td>Good</td>
+                    <td>{statistics.good}</td>
+                </tr>
+                <tr>
+                    <td>Neutral</td>
+                    <td>{statistics.neutral}</td>
+                </tr>
+                <tr>
+                    <td>Bad</td>
+                    <td>{statistics.bad}</td>
+                </tr>
+                <tr>
+                    <td>All</td>
+                    <td>{statistics.all}</td>
+                </tr>
+                <tr>
+                    <td>Average</td>
+                    <td>{statistics.average}</td>
+                </tr>
+                <tr>
+                    <td>Positive</td>
+                    <td>{statistics.positive}</td>
+                </tr>
+                </tbody>
+            </table>
         )
     }
 
