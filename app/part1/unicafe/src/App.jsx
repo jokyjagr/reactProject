@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Header from "./components/Header.jsx";
-import StatisticLine from "./components/StatisticLine.jsx";
+import Statistics from "./components/Statistics.jsx";
 
 const App = () => {
     const goodValue = 1;
@@ -16,6 +16,7 @@ const App = () => {
         average: 0,
         positive: 0 + '%'
     })
+
     const calculateWeightedTotal = (good, neutral, bad) => {
         return (goodValue * good) + (neutralValue * neutral) + (badValue * bad);
     }
@@ -59,7 +60,6 @@ const App = () => {
         setClicks(newClicks)
     }
 
-
     return (
         <>
             <Header text={"Give feedback"}/>
@@ -68,12 +68,7 @@ const App = () => {
             <button onClick={handleBadClick}>bad</button>
 
             <Header text={"Statistics"}/>
-            <StatisticLine text="Good: " value={statistics.good}/>
-            <StatisticLine text="Neutral: " value={statistics.neutral}/>
-            <StatisticLine text="Bad: " value={statistics.bad}/>
-            <StatisticLine text="All: " value={statistics.all}/>
-            <StatisticLine text="Average: " value={statistics.average}/>
-            <StatisticLine text="Positive: " value={statistics.positive}/>
+            <Statistics values={statistics}/>
         </>
     )
 }
