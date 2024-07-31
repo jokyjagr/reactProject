@@ -1,10 +1,9 @@
 import Course from "../Course/Course.jsx";
 import Notes from "../Course/Notes.jsx";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import axios from 'axios'
 
 const App = () => {
-
-
     const arrayNotes = [
         {
             id: 1,
@@ -22,7 +21,7 @@ const App = () => {
             important: true
         }]
 
-    const [notes, setNotes] = useState(arrayNotes)
+    const [notes, setNotes] = useState([])
 
     const [newNote, setNewNote] = useState('a new note...')
 
@@ -108,6 +107,17 @@ const App = () => {
         setNewNote('')
     }
 
+    const hook = () => {
+        console.log('effect')
+        axios
+            .get('http://localhost:3001/notes')
+            .then(response => {
+                console.log('promise fulfilled')
+                setNotes(response.data)
+            })
+    }
+    console.log('render', notes.length, 'notes')
+    useEffect(hook, []);
     return (
         // <div>
         //     <Course courses={courses}/>

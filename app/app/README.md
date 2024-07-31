@@ -1,8 +1,13 @@
-# React + Vite
+Servidor json para desarrollo:
+npm install -g json-server
+Después de instalar, ejecuta el siguiente comando para ejecutar json-server. Por defecto, json-server se inicia en el puerto 3000; ahora definiremos un puerto alternativo 3001, para json-server. La opción --watch busca automáticamente cualquier cambio guardado en db.json.
+json-server --port 3001 --watch db.json
+Sin embargo, no es necesaria una instalación global. Desde el directorio raíz de su aplicación, podemos ejecutar json-server usando el comando npx:
+npx json-server --port 3001 --watch db.json
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Añadir esto al package.json dentro de scripts:
+"server": "json-server -p3001 --watch db.json"
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Se deben instalar estos paquetes antes:
+npm install axios
+npm install json-server --save-dev
