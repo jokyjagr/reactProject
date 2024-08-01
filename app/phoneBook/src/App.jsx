@@ -3,6 +3,7 @@ import axios from 'axios'
 import Filter from "./components/Filter.jsx";
 import AddNewValue from "./components/AddNewValue.jsx";
 import ListOfNumbers from "./components/ListOfNumbers.jsx";
+import personService from './services/persons';
 
 const App = () => {
     const [persons, setPersons] = useState([])
@@ -46,9 +47,14 @@ const App = () => {
             name: newName,
             number: newNumber
         }
-        setPersons(persons.concat(noteObject))
-        setNewName('')
-        setNewNumber('')
+        personService
+            .create(noteObject)
+            .then(returnedPerson => {
+                setPersons(persons.concat(returnedPerson))
+                setNewName('')
+                setNewNumber('')
+            })
+
     }
 
     const hook = () => {
