@@ -29,7 +29,6 @@ const App = () => {
         : persons.filter(person => person.name.toLowerCase().includes(findName.toLowerCase()));
 
     const existedName = function (person) {
-        console.log('inside existedName', person);
         return person.name === newName;
     }
 
@@ -38,7 +37,7 @@ const App = () => {
 
         let exist = persons.filter(existedName);
 
-        if (exist) {
+        if (persons.length > 0 && exist) {
             if (newNumber) {
                     if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
                         const personObject = {
