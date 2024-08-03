@@ -29,6 +29,7 @@ const App = () => {
         : persons.filter(person => person.name.toLowerCase().includes(findName.toLowerCase()));
 
     const existedName = function (person) {
+        console.log('inside existedName', person);
         return person.name === newName;
     }
 
@@ -37,22 +38,32 @@ const App = () => {
 
         let exist = persons.filter(existedName);
 
-        if (exist.length > 0) {
-            alert(`${newName} is already added to phonebook`)
-            return
+        if (exist) {
+            if (newNumber) {
+                    if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+                        const personObject = {
+                            name: newName,
+                            number: newNumber
+                        }
+                        updatePhone(exist[0].id,personObject);
+                    }
+            } else {
+                alert(`${newName} is already added to phonebook`);
+            }
+            return false;
         }
-        const noteObject = {
+        const personObject = {
             name: newName,
             number: newNumber
         }
+
         personService
-            .create(noteObject)
+            .create(personObject)
             .then(returnedPerson => {
                 setPersons(persons.concat(returnedPerson))
                 setNewName('')
                 setNewNumber('')
             })
-
     }
 
     const deletePerson = (id) => {
@@ -73,7 +84,6 @@ const App = () => {
                 setPersons(response.data)
             })
     }
-    console.log('render', persons.length, 'notes')
     useEffect(hook, []);
 
     const confirmDelete = (id) => {
@@ -84,6 +94,22 @@ const App = () => {
             }
         };
     };
+
+    const updatePhone = (id, newObject) => {
+        const person = persons.find(n => n.id === id)
+        const changedPerson = {...person, number: newObject.number}
+
+        personService
+            .update(id, changedPerson)
+            .then(returnedPerson => {
+                setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+            }).catch(() => {
+            alert(
+                `Undefined error`
+            )
+            // setPersons(persons.filter(n => n.id !== id))
+        })
+    }
 
     return (
         <div>
