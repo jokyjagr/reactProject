@@ -21,9 +21,7 @@ const App = () => {
     }
 
     const handleFindNameChange = (event) => {
-        console.log("Before setFindName", findName)
         setFindName(event.target.value)
-        console.log("After setFindName", findName)
     }
 
     const numbersToShow = findName === ""
@@ -57,8 +55,17 @@ const App = () => {
 
     }
 
+    const deletePerson = (id) => {
+        personService
+            .remove(id)
+            .then(returnedPerson => {
+                console.log("Delete anwser", returnedPerson);
+            })
+        setPersons(persons.filter(person => person.id !== id))
+    }
+
     const hook = () => {
-        console.log('effect')
+        console.log('Inside the hook')
         axios
             .get('http://localhost:3001/persons')
             .then(response => {
@@ -69,6 +76,15 @@ const App = () => {
     console.log('render', persons.length, 'notes')
     useEffect(hook, []);
 
+    const confirmDelete = (id) => {
+        console.log('inside confirmDelete', id);
+        return () => {
+            if (window.confirm('Are you sure you want to delete this person?')) {
+                deletePerson(id);
+            }
+        };
+    };
+
     return (
         <div>
             <h2>Phonebook</h2>
@@ -78,7 +94,7 @@ const App = () => {
             <AddNewValue addNewValue={addNewValue} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
 
             <h2>Numbers</h2>
-            <ListOfNumbers numbersToShow={numbersToShow}/>
+            <ListOfNumbers numbersToShow={numbersToShow} deletePerson={confirmDelete}/>
         </div>
     )
 }

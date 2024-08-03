@@ -1,8 +1,10 @@
-function ListOfNumbers({numbersToShow}) {
+function ListOfNumbers({numbersToShow, deletePerson}) {
     return (
         <>
             <ul>
-                {numbersToShow.map(person => <li key={person.name}>{person.name} {person.number}</li>)}
+                {numbersToShow.map(person => <li key={person.name}>{person.name} {person.number}
+                    <button onClick={deletePerson(person.id)}>Delete</button>
+                </li>)}
             </ul>
         </>
     )
