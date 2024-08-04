@@ -3,7 +3,7 @@ function ListOfNumbers({numbersToShow, deletePerson}) {
         <>
             <ul>
                 {numbersToShow.map(person => <li key={person.id}>{person.name} {person.number}
-                    <button onClick={deletePerson(person.id)}>Delete</button>
+                    <button onClick={() => deletePerson(person.id)}>Delete</button>
                 </li>)}
             </ul>
         </>
