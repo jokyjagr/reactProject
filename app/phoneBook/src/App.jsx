@@ -4,12 +4,16 @@ import Filter from "./components/Filter.jsx";
 import AddNewValue from "./components/AddNewValue.jsx";
 import ListOfNumbers from "./components/ListOfNumbers.jsx";
 import personService from './services/persons';
+import Notification from "./components/Notification.jsx";
+import Footer from "./components/Footer.jsx";
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [findName, setFindName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(null);
 
     const handleNameChange = (event) => setNewName(event.target.value)
     const handleNumberChange = (event) => setNewNumber(event.target.value)
@@ -42,6 +46,10 @@ const App = () => {
                 setPersons(persons.concat(returnedPerson))
                 setNewName('')
                 setNewNumber('')
+                setSuccessMessage(`Added ${returnedPerson.name}`);
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 5000);
             })
     }
 
@@ -77,23 +85,31 @@ const App = () => {
         personService.update(id, changedPerson)
             .then(returnedPerson => {
                 setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+                setNewName('')
+                setNewNumber('')
             }).catch(() => {
-            alert(
-                `Undefined error`
+            setErrorMessage(
+                `Undefined error occurred while updating the phone number of ${changedPerson.name}`
             )
-            // setPersons(persons.filter(n => n.id !== id))
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
         })
     }
 
     return (
         <div>
+            <Notification message={errorMessage} classStyle={'error'} />
             <h2>Phonebook</h2>
+            <Notification message={successMessage} classStyle={'success'} />
             <Filter findName={findName} handleFindNameChange={handleFindNameChange}/>
             <h2>Add new one</h2>
             <AddNewValue addNewValue={addNewValue} newName={newName} handleNameChange={handleNameChange}
                          newNumber={newNumber} handleNumberChange={handleNumberChange}/>
             <h2>Numbers</h2>
             <ListOfNumbers numbersToShow={numbersToShow} deletePerson={confirmDelete}/>
+            <Footer/>
+
         </div>
     )
 }
