@@ -59,7 +59,12 @@ const App = () => {
                 setPersons(persons.filter(person => person.id !== id))
             })
             .catch(error => {
-                console.log('error deleting a person:', error)
+                const name = persons.find(person => person.id === id).name;
+                setErrorMessage(`Error deleting ${name}`);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 5000);
+                console.log("This is the error:", error);
             })
     }
 
