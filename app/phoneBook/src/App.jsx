@@ -87,6 +87,10 @@ const App = () => {
                 setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
                 setNewName('')
                 setNewNumber('')
+                setSuccessMessage(`Update ${returnedPerson.name}`);
+                setTimeout(() => {
+                    setSuccessMessage(null);
+                }, 5000);
             }).catch(() => {
             setErrorMessage(
                 `Undefined error occurred while updating the phone number of ${changedPerson.name}`
