@@ -70,7 +70,7 @@ const App = () => {
 
     useEffect(() => {
         console.log('Inside the hook')
-        axios.get('http://localhost:3001/persons')
+        axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
             .then(response => {
                 console.log('promise fulfilled')
                 setPersons(response.data)
